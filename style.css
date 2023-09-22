@@ -1,0 +1,17 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.errorMsg{
+  font-size: .8rem;
+  color: red;
+}
+
+form{
+  margin:30px;
+}
+
+form div {
+  margin-bottom: 30px;
+}
