@@ -1,4 +1,4 @@
-const URL = "https://crudcrud.com/api/e5fefa3f81fa4cdfb74fb659aac9667e/itens";
+const URL = "https://crudcrud.com/api/a947e8ed7517419ab918198bb07f39f5/itens";
 
 // REQUEST FUNCTIONS ///////////////
 
@@ -50,6 +50,15 @@ async function updateItem(id, itemObj) {
 }
 
 // DOM MANIPULATIONS FUNCTIONS ///////////////
+
+function atualizaLocalStorage(){
+  getItensObj().then((arrayItens) => {
+    localStorage.setItem("arrayItens", JSON.stringify(arrayItens));
+    console.log("MEU ARRAYZINHO")
+    console.log(arrayItens)
+  })
+}
+atualizaLocalStorage()
 
 function createItemElement(item, index) { // ----------- o "index" foi usado na implementação do professor pra acessar as imagens
   // READ
@@ -124,6 +133,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
         elem.remove(); // -------------------------------------------- remove meu container elemen
         cardItem.remove();
         deleteItem(item._id).then((msg) => alert(msg)); // ----------- chama a função assincrona de deleção
+        atualizaLocalStorage()
       }
     })
     retirar.append(quant, btnRetirar);
@@ -151,9 +161,8 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
   elem.append(infoContainer, link) // -------------- Add as Infos e a Imagem ao container Elem  
 
   geladeira.appendChild(elem);// ------------------- Add o elem no container principal Geladeira 
-  geladeira.className = "d-flex flex-wrap justify-content-center justify-content-lg-center mt-3 mx-lg-5 "
+  geladeira.className = "d-flex flex-wrap justify-content-center justify-content-lg-start mt-3 mx-lg-5 "
 };
-
 
 // mostrando na tela cada item do arrayItens
 getItensObj().then((arrayItens) => {
