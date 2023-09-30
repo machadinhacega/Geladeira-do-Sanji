@@ -150,3 +150,12 @@ select {
 body {
   background-image: url("https://i.postimg.cc/Ssryt3ps/background.png");
 }
+
+
+.cardAbsolute{
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}

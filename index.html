@@ -14,19 +14,13 @@
 <body class="text-center">
 
   <header>
-    <!-- <h1 class="text-center bg-warning text-white py-3">ITENS</h1> -->
     <div id="containerSup"></div>
     <div>
       <img src="https://i.postimg.cc/CKHq6VpW/simbolo-sanji.png" height="100px">
     </div>
   </header>
 
-
   <main class="container">
-
-    <!-- <img class="position-absolute start-0 z-n1 img-fluid  ms-0 ps-0"
-      src="https://uploaddeimagens.com.br/images/004/620/561/full/sanji1.png"> -->
-
     <div id="containerForm" class="d-none ">
       <div class="row justify-content-center">
         <form method="post" id="formCadastro" class="formView d-grid col-8 col-lg-3 p-0 mt-5 rounded-3">
@@ -60,12 +54,6 @@
             </select>
             <p id="tipoError" class="errorMsg"></p>
           </div>
-          <!-- <div>
-                  <input type="radio" name="state" id="feito" value="feito" checked >
-                  <label for="feito" >Feito</label>
-                  <input type="radio" name="state" id="paraFazer" value="paraFazer"">
-                  <label for="paraFazer">Para fazer</label>
-              </div> -->
           <div>
             <a id='btnCancelar' class="btn btn-outline-secondary">Cancelar</a>
             <input type="submit" value="Adicionar" id="btnSave" class="btn btn-outline-secondary">
@@ -76,11 +64,12 @@
 
     <div id="geladeira" class="container mt-5"></div>
 
-    <div id="cardContainer"></div>
-
+    <div id="cardAbsolute" class="">
+      <div id="cardContainer"></div>
+    </div>
 
     <div class="container mt-5">
-      <button id="btnAdd" class=""> + </button>
+      <button id="btnAdd" class="align-items-center"> + </button>
     </div>
 
   </main>

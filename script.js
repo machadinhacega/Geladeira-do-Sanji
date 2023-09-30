@@ -1,4 +1,4 @@
-const URL = "https://crudcrud.com/api/a947e8ed7517419ab918198bb07f39f5/itens";
+const URL = "https://crudcrud.com/api/0e829f7a77c74176a429d6619708b5e5/itens";
 
 // REQUEST FUNCTIONS ///////////////
 
@@ -51,7 +51,7 @@ async function updateItem(id, itemObj) {
 
 // DOM MANIPULATIONS FUNCTIONS ///////////////
 
-function atualizaLocalStorage(){
+function atualizaLocalStorage() {
   getItensObj().then((arrayItens) => {
     localStorage.setItem("arrayItens", JSON.stringify(arrayItens));
     console.log("MEU ARRAYZINHO")
@@ -66,7 +66,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
   const geladeira = document.querySelector("#geladeira");
   const id = `item-${item._id}`;
 
-  let elem = document.querySelector(`div${id}`); // -------- Procura o container com id igual ao id do item.
+  let elem = document.querySelector(`div#${id}`); // -------- Procura o container com id igual ao id do item.
   if (elem) return; // ------------------------------------- se esse container existir, não cria de novo, para por aqui.
   elem = document.createElement("div");  // ------------ O container do nosso item
   elem.id = id; // ------------------------------------- O container recebe id igual ao id do item.
@@ -99,6 +99,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
   btnMais.className = "btn btnCustom me-2";
   btnMais.addEventListener("click", () => {   // ---------------------- Função para mostrar as infos especificas do item
     // READ 2
+    document.getElementById("cardAbsolute").className = "cardAbsolute"  // -------- Pra deixar na tela (MODAL)
     cardContainer.innerText = ""
     const infoContainer = document.createElement("div")  // ---------------- Cria o container das infos especificas do item
     const nome = document.createElement("h3");
@@ -114,18 +115,30 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
     tipo.innerText = item.tipo;
     tipo.className = "text-start fs-6 text text-principal my-0 fw-normal";
 
-    infoContainer.append(nome, quantidade, validade); // -------------------------- add as infos
+    infoContainer.append(nome, quantidade, validade, tipo); // -------------------------- add as infos
     infoContainer.className = ""
 
+
     const retirar = document.createElement("div"); // --------- container com o 'retirar' do item
-    const quant = document.createElement("h3");
-    quant.innerText = item.quantidade;
-    quant.className = "text-start fs-2 text text-principal my-0";
+
+    const quant = document.createElement("div");
+    const maisQuant = document.createElement("p");
+    const menosQuant = document.createElement("p");
+    const quantValor = document.createElement("h3")
+    menosQuant.innerText = "-"
+    quantValor.innerText = item.quantidade;
+    maisQuant.innerText = "+"
+    menQuant.className = "fw-bold fs-5 text-secondary";
+    quantValor.className = "text-center fs- text text-principal";
+    maisQuant.className = "fw-bold fs-5 text-secondary";
+    quant.append(menosQuant, quantValor, maisQuant);
+    quant.className = "d-flex justify-content-between";
+
     const btnRetirar = document.createElement("button"); // --------- botão para retirar
     btnRetirar.innerText = 'Retirar';
     // [!!!!!!!!!!] REVER AS CLASSES QUE ESSE BOTÃO ESTÁ REALMENTE PUXANDO
     btnRetirar.className = "btnMais";
-    btnRetirar.className = "btn btnCustom me-2";
+    btnRetirar.className = "btn btnCustom text-center";
     btnRetirar.addEventListener("click", () => {
       // DELETE
       // DELETE
@@ -136,19 +149,23 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
         atualizaLocalStorage()
       }
     })
+
     retirar.append(quant, btnRetirar);
+
 
     // [!!!!!!!!!!!!!!] TESTAR SE DA PRA TIRAR O CARITEM E ADD TUDO NO CARDCONTAINER
     const cardItem = document.createElement("div");
     const btnX = document.createElement("button") // --------------- botão pra limpar o cardContainer
     btnX.innerText = 'X'
-    btnX.className = "btn btnCustom"
+    btnX.className = "btn btnCustom h-50 border-secondary bg-secondary"
     btnX.addEventListener("click", () => {
       cardContainer.innerText = ""
+      document.getElementById("cardAbsolute").className = ""
     })
     cardItem.append(infoContainer, retirar, btnX);
-    cardItem.className = "d-flex"
+    cardItem.className = "d-flex bg-light border border-warning border-2 d-grid col-8 col-lg-2 justify-content-between pt-4 pe-3 pb-4 ps-4 rounded-3"
 
+    cardContainer.className = "row h-100 justify-content-center align-items-center"
     cardContainer.appendChild(cardItem) // ------------------------------ cardContainer   
   })
 
@@ -164,10 +181,19 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
   geladeira.className = "d-flex flex-wrap justify-content-center justify-content-lg-start mt-3 mx-lg-5 "
 };
 
+
 // mostrando na tela cada item do arrayItens
-getItensObj().then((arrayItens) => {
-  arrayItens.forEach(createItemElement);
-})
+const interval = setInterval(() => { // ---------- Atualiza de 5 em 5 segundos
+  getItensObj().then((arrayItens) => {  // ----------- Pega o arrayItens (do CrudCrud) pela função assincrona getItensObj
+    arrayItens.forEach(createItemElement); // -------- Pra cada item cria um elemento na tela pela função assincrona CreateItemElement
+  });
+  console.log('Atualizei ;)')
+}, 5000);
+
+setTimeout(() => {
+  clearInterval(interval);
+  console.log('Ta bom de atualizar já!')
+}, 5000)
 
 const today = (new Date()).toISOString().split("T")[0]; // ------------- pegar a data atual para verificar validade
 
@@ -235,6 +261,8 @@ formCadastro.addEventListener('submit', (event) => {
 // Abrir o ADD
 btnAdd.addEventListener("click", () => {
   containerForm.className = "containerForm"; // ------------  mostra o form
+  cardContainer.innerText = ""
+  document.getElementById("cardAbsolute").className = ""
 })
 
 //  Fechar o ADD
