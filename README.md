@@ -1,6 +1,6 @@
 # Cozinha de Sanji - Gerenciador de Ingredientes
 
-![*capa do livro One Piece: Pirate Recipes](https://www.blog.geekpoint.com.br/wp-content/uploads/2021/12/One-Piece-Cook-book-1024x512.jpg)
+![*capa do livro One Piece: Pirate Recipes](https://github.com/machadinhacega/Geladeira-do-Sanji/blob/main/img/sanji-presentation.png?raw=true)
 
 
 Bem-vindo à Cozinha de Sanji, meu amigo navegante! Este é um projeto que vai transformar sua tripulação em verdadeiros gourmets, permitindo que você gerencie os ingredientes a bordo do Thousand Sunny com facilidade e estilo!
@@ -60,5 +60,6 @@ Este projeto segue os princípios da Grand Line e está licenciado sob a [Licen�
 
 
 
+[<img src='https://github.com/machadinhacega/Geladeira-do-Sanji/blob/main/img/verProjeto.png?raw=true' alt='botao ver projeto' height='70'>](https://principal-crud-completaco-izamachado.1003-santander-coders.repl.co) 
 
-[Visualizar Projeto](https://machadinhacega.github.io/Geladeira-do-Sanji/)
+<!-- https://machadinhacega.github.io/Geladeira-do-Sanji/
