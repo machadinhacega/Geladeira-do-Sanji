@@ -10,7 +10,7 @@ Bem-vindo à Cozinha de Sanji, meu amigo navegante! Este é um projeto que vai t
 ### 1. Visualização de Ingredientes
 
 - Dê uma olhada na despensa da nossa querida nave.
-- Basta dar um clique e você terá detalhes saborosos sobre cada ingrediente, incluindo nome, quantidade e data de validade.
+- Basta dar um clique e você terá detalhes saborosos sobre cada ingrediente, incluindo nome, quantidade, data de validade e tipo.
 
 ### 2. Adição de Ingredientes
 
@@ -38,6 +38,7 @@ Bem-vindo à Cozinha de Sanji, meu amigo navegante! Este é um projeto que vai t
 
 1. Clone este repositório ou baixe o código-fonte.
 2. Abra o arquivo `index.html` no navegador.
+3. Não esqueça de gerar um novo URL CrudCrud.
 
 ## Ingredientes Tecnológicos
 
@@ -51,7 +52,7 @@ Com certeza, meu amigo! Se você quiser aprimorar esta receita ou adicionar novo
 
 ## Chef Responsável
 
-Este projeto foi criado por Iza Machado durante nossa aventura no Santander Coders 2023 a bordo do Thousand Sunny.
+Este projeto foi criado por [Iza Machado](https://github.com/machadinhacega) durante nossa aventura no [Santander Coders 2023](https://github.com/machadinhacega/Santander_Coders_2023_Front-End) a bordo do Thousand Sunny. 
 
 ## Licença
 
