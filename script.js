@@ -128,7 +128,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
     menosQuant.innerText = "-"
     quantValor.innerText = item.quantidade;
     maisQuant.innerText = "+"
-    menQuant.className = "fw-bold fs-5 text-secondary";
+    menosQuant.className = "fw-bold fs-5 text-secondary";
     quantValor.className = "text-center fs- text text-principal";
     maisQuant.className = "fw-bold fs-5 text-secondary";
     quant.append(menosQuant, quantValor, maisQuant);
