@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300&display=swap');
+
+:root {
+  --colorYellowBtn: #DA9D31;
+  --colorPrincipal: #DA9D31;
+  --white: #fff;
+  --colorSecond: #734444;
+}
+
+
+body {
+  background-color: var(--colorPrincipal) !important;
+}
+
+#containerSup {
+  height: 70px;
+  background-color: var(--colorSecond);
+  border-bottom: 10px solid var(--white);
+  margin-bottom: 10px;
+}
+
+.text-principal {
+  color: var(--colorSecond);
+}
+
+.border-login {
+  border: 1px solid var(--colorSecond);
+  border-radius: 5px;
+}
+
+.btn-login {
+  background-color: transparent;
+}
+
+.btn-login:hover {
+  background-color: var(--colorSecond);
+  color: #fff;
+}
+
+.btn-login:active {
+  background-color: #503030;
+  color: #fff;
+}
+
+.msgSanji {
+  font-family: 'Kalam', cursive;
+  font-size: 1.3rem;
+  line-height: .6rem;
+  color: #603939;
+}
+
+
+.containerMsgSanji{
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .containerMsgSanji{
+    display: block;
+  }
+  #msg1 {
+    position: absolute;
+    top: 250px;
+    left: 150px;
+
+    transform: rotate(-10deg);
+  }
+
+  #msg2 {
+    position: absolute;
+    top: 450px;
+    left: 250px;
+
+    text-align: center;
+    transform: rotate(5deg);
+  }
+
+  #msg3 {
+    position: absolute;
+    top: 200px;
+    right: 300px;
+
+    text-align: center;
+    transform: rotate(5deg);
+  }
+
+  #msg4 {
+    position: absolute;
+    bottom: 150px;
+    left: 500px;
+
+    text-align: center;
+    transform: rotate(-5deg);
+  }
+
+  #msg5 {
+    position: absolute;
+    top: 600px;
+    right: 400px;
+
+    text-align: center;
+    transform: rotate(-10deg);
+  }
+}
