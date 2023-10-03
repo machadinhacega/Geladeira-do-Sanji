@@ -19,7 +19,8 @@ body {
   margin-bottom: 10px;
 }
 
-.text-principal {
+
+.text-principalLogin {
   color: var(--colorSecond);
 }
 
@@ -42,6 +43,15 @@ body {
   color: #fff;
 }
 
+.verSenha{
+  display:inline;
+  height: 20px;
+}
+
+#entrar{
+  width:90%
+}
+
 .msgSanji {
   font-family: 'Kalam', cursive;
   font-size: 1.3rem;
@@ -49,19 +59,18 @@ body {
   color: #603939;
 }
 
-
 .containerMsgSanji{
   display: none;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 900px) {
   .containerMsgSanji{
     display: block;
   }
   #msg1 {
     position: absolute;
     top: 250px;
-    left: 150px;
+    left: 5vw;
 
     transform: rotate(-10deg);
   }
@@ -69,7 +78,7 @@ body {
   #msg2 {
     position: absolute;
     top: 450px;
-    left: 250px;
+    left: 15vw;
 
     text-align: center;
     transform: rotate(5deg);
@@ -78,7 +87,7 @@ body {
   #msg3 {
     position: absolute;
     top: 200px;
-    right: 300px;
+    right: 10vw;
 
     text-align: center;
     transform: rotate(5deg);
@@ -86,8 +95,8 @@ body {
 
   #msg4 {
     position: absolute;
-    bottom: 150px;
-    left: 500px;
+    top: 85vh;
+    left: 10vw;
 
     text-align: center;
     transform: rotate(-5deg);
@@ -96,7 +105,7 @@ body {
   #msg5 {
     position: absolute;
     top: 600px;
-    right: 400px;
+    right: 20vw;
 
     text-align: center;
     transform: rotate(-10deg);

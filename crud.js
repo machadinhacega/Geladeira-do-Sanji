@@ -1,4 +1,4 @@
-const URL = "https://crudcrud.com/api/0e829f7a77c74176a429d6619708b5e5/itens";
+const URL = "https://crudcrud.com/api/f3298ce7579b46ee98d3f2d6a994f324/itens";
 
 // REQUEST FUNCTIONS ///////////////
 
@@ -46,7 +46,9 @@ async function updateItem(id, itemObj) {
     body: JSON.stringify(itemObj),
     headers: { 'Content-Type': 'application/json' }
   });
-  return await resonse.json();
+  return await resonse
+  // qndo ta com o .json ele da um erro
+  // return await resonse.json();
 }
 
 // DOM MANIPULATIONS FUNCTIONS ///////////////
@@ -89,7 +91,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
   img.src = item.img;
   img.className = "imgElemen";
   const link = document.createElement("a") // ------ Link que add o id do item no final do 'href' da página
-  link.href = `/?id=${item._id}`; // ---------------- vai servir justamente pra identificar que está 'na pagina' de um item especifico
+  link.href = `/crud.html?id=${item._id}`; // ---------------- vai servir justamente pra identificar que está 'na pagina' de um item especifico
   link.appendChild(img)
 
   const btnMais = document.createElement("button");  // --------- • Botão para ver as infos especificas de cada item
@@ -125,35 +127,72 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
     const maisQuant = document.createElement("p");
     const menosQuant = document.createElement("p");
     const quantValor = document.createElement("h3")
-    menosQuant.innerText = "-"
-    quantValor.innerText = item.quantidade;
-    maisQuant.innerText = "+"
-    menosQuant.className = "fw-bold fs-5 text-secondary";
+
+    quantValor.innerText = 0
     quantValor.className = "text-center fs- text text-principal";
+    quantValor.id = "quantValorRetirar"
+
+    menosQuant.innerText = "-"
+    menosQuant.className = "fw-bold fs-5 text-secondary";
+    menosQuant.addEventListener("click", () => {
+      let currQuant = parseInt(quantValor.innerText);
+      currQuant--;
+      document.getElementById("quantValorRetirar").innerText = Math.max(currQuant, 0);
+    })
+
+
     maisQuant.className = "fw-bold fs-5 text-secondary";
+    maisQuant.innerText = "+"
+    maisQuant.addEventListener("click", () => {
+      let currQuant = parseInt(quantValor.innerText);
+      currQuant++;
+      document.getElementById("quantValorRetirar").innerText = Math.min(currQuant, item.quantidade)
+    })
+
     quant.append(menosQuant, quantValor, maisQuant);
+
     quant.className = "d-flex justify-content-between";
 
     const btnRetirar = document.createElement("button"); // --------- botão para retirar
     btnRetirar.innerText = 'Retirar';
-    // [!!!!!!!!!!] REVER AS CLASSES QUE ESSE BOTÃO ESTÁ REALMENTE PUXANDO
-    btnRetirar.className = "btnMais";
     btnRetirar.className = "btn btnCustom text-center";
     btnRetirar.addEventListener("click", () => {
       // DELETE
       // DELETE
-      if (confirm(`Aqui só tira se for tudo. Vai comer tudo?`)) {
-        elem.remove(); // -------------------------------------------- remove meu container elemen
-        cardItem.remove();
-        deleteItem(item._id).then((msg) => alert(msg)); // ----------- chama a função assincrona de deleção
-        atualizaLocalStorage()
+      if(parseInt(quantValor.innerText) === 0){
+        return
       }
+      if (parseInt(quantValor.innerText) == quantidade.innerText[0]) {
+        if (confirm(`Você vai comer tudo!? Se for, não desperdice essa comida!`)) {
+          elem.remove(); // -------------------------------------------- remove meu container elemen
+          cardItem.remove();
+          deleteItem(item._id).then((msg) => alert(msg)); // ----------- chama a função assincrona de deleção
+          cardContainer.innerText = ""
+          document.getElementById("cardAbsolute").className = ""
+          atualizaLocalStorage()
+        }
+      } else {
+        // UPDATE
+        let currItem = {
+          nome: item.nome,
+          img: item.img,
+          quantidade: (item.quantidade - parseInt(quantValor.innerText)),
+          validade: item.validade,
+          tipo: item.tipo,
+        }
+        updateItem(item._id, currItem).then();
+        cardItem.remove()
+        atualizaLocalStorage()
+        cardContainer.innerText = ""
+        document.getElementById("cardAbsolute").className = ""
+        window.location = '/crud.html'
+      }
+
     })
 
     retirar.append(quant, btnRetirar);
 
 
-    // [!!!!!!!!!!!!!!] TESTAR SE DA PRA TIRAR O CARITEM E ADD TUDO NO CARDCONTAINER
     const cardItem = document.createElement("div");
     const btnX = document.createElement("button") // --------------- botão pra limpar o cardContainer
     btnX.innerText = 'X'
@@ -169,11 +208,7 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
     cardContainer.appendChild(cardItem) // ------------------------------ cardContainer   
   })
 
-  // [!!!!!!!!!!!!!!] TESTAR SE REALMENTE PRECISA DE UM CONTAINER PRO BOTÃO VER MAIS
-  const btnContainer = document.createElement("div")
-  btnContainer.append(btnMais)
-  btnContainer.className = "d-flex"
-  infoContainer.append(btnContainer)
+  infoContainer.append(btnMais)
 
   elem.append(infoContainer, link) // -------------- Add as Infos e a Imagem ao container Elem  
 
@@ -182,7 +217,13 @@ function createItemElement(item, index) { // ----------- o "index" foi usado na 
 };
 
 
-// mostrando na tela cada item do arrayItens
+// mostrando na tela cada item do arrayItens | READ
+getItensObj().then((arrayItens) => {  // ----------- Pega o arrayItens (do CrudCrud) pela função assincrona getItensObj
+  arrayItens.forEach(createItemElement); // -------- Pra cada item cria um elemento na tela pela função assincrona CreateItemElement
+});
+
+
+// INTERVAL 5 em 5 segundos
 const interval = setInterval(() => { // ---------- Atualiza de 5 em 5 segundos
   getItensObj().then((arrayItens) => {  // ----------- Pega o arrayItens (do CrudCrud) pela função assincrona getItensObj
     arrayItens.forEach(createItemElement); // -------- Pra cada item cria um elemento na tela pela função assincrona CreateItemElement
@@ -193,7 +234,10 @@ const interval = setInterval(() => { // ---------- Atualiza de 5 em 5 segundos
 setTimeout(() => {
   clearInterval(interval);
   console.log('Ta bom de atualizar já!')
-}, 5000)
+}, 15000)
+
+
+
 
 const today = (new Date()).toISOString().split("T")[0]; // ------------- pegar a data atual para verificar validade
 
@@ -252,27 +296,27 @@ formCadastro.addEventListener('submit', (event) => {
   formCadastro.reset() // ------------------ limpa o form
 
   // atualzia a pagina
-  window.location = '/';
+  window.location = '/crud.html';
 
 });
 
 
 
-// Abrir o ADD
+// Abrir o form pelo botão ADD [+]
 btnAdd.addEventListener("click", () => {
   containerForm.className = "containerForm"; // ------------  mostra o form
   cardContainer.innerText = ""
   document.getElementById("cardAbsolute").className = ""
 })
 
-//  Fechar o ADD
+//  Fechar o form pelo botão ADD [+]
 btnCancelar.addEventListener("click", () => {
   for (let erro of document.querySelectorAll(".errorMsg")) {
     erro.innerText = ''; // -------------------------------- limpa os erros
   }
   formCadastro.reset();  // -------------------------------- limpa os campos
   if (btnSave.value === 'Atualizar') {
-    window.location = '/';  // ----------------------------- se estiver editando, volta pra URL sem o id (inicial)
+    window.location = '/crud.html';  // ----------------------------- se estiver editando, volta pra URL sem o id (inicial)
   }
   containerForm.className = "d-none";  // ----------------- esconde o form
 });
